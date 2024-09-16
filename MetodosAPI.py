@@ -28,11 +28,11 @@ class MetodosAPI:
     
     # Metodo para obter uma info especifica de um livro
     def info_livro(self, id):
-        return self.bd_Livro[id].retornar_dicionario()
+        return self.bd_Livro[int(id)].retornar_dicionario()
     
     # Metodo para atualizar um livro
     def atualizar_livro(self, id, dicionario):
-        livro = self.bd_Livro[id]
+        livro = self.bd_Livro[int(id)]
         
         if dicionario["titulo"] != None:
             livro.titulo = dicionario["titulo"]
@@ -48,9 +48,9 @@ class MetodosAPI:
 
     # Metodo para excluir um livro
     def excluir_livro(self, id):
-        livro = self.bd_Livro[id]
-        del self.bd_Livro[id]
-        # Deletar_Associacao(livro) TODO
+        livro = self.bd_Livro[int(id)]
+        del self.bd_Livro[int(id)]
+        self.excluir_associacao(livro.autor_id,livro.id) 
 
 # Trabalhando com autores
     # Metodo para criar um autor
@@ -68,11 +68,11 @@ class MetodosAPI:
     
     # Metodo para obter uma info especifica de um autor
     def info_autor(self, id):
-        return self.bd_Autor[id].retornar_dicionario()
+        return self.bd_Autor[int(id)].retornar_dicionario()
     
     # Metodo para atualizar um autor
     def atualizar_autor(self, id, dicionario):
-        autor = self.bd_Autor[id]
+        autor = self.bd_Autor[int(id)]
         
         if dicionario["nome"] != None:
             autor.nome = dicionario["nome"]
@@ -85,34 +85,29 @@ class MetodosAPI:
 
     # Metodo para excluir um autor
     def excluir_autor(self, id):
-        autor = self.bd_Autor[id]
-        del self.bd_Autor[id]
+        autor = self.bd_Autor[int(id)]
+        for livro in autor.livros:
+            self.excluir_associacao(autor.id, livro.id)
+        del self.bd_Autor[int(id)]
+        
         # Deletar_Associacao(autor) 
 
 # Trabalhando com as associacoes
     # Metodo para criar uma associacao entre um autor e um livro
     def criar_associacao(self, id_autor, id_livro):
-        self.bd_Autor[id_autor].livros.append(self.bd_Livro[id_livro])
+        self.bd_Autor[id_autor].livros[self.bd_Livro[id_livro].id] = (self.bd_Livro[id_livro])
         self.bd_Livro[id_livro].autor_id = self.bd_Autor[id_autor].id
 
     # Metodo para listar todos os livros de um autor
     def listar_livros_do_autor(self, id_autor):
-        lista_livros = []
-        for livro in self.bd_Autor[id_autor].livros:
-            lista_livros.append(livro.retornar_dicionario())
-        return lista_livros
+        return self.bd_Autor[int(id_autor)].livros
     
     # Metodo para excluir associacao entre livro e autor
     def excluir_associacao(self, id_autor, id_livro):
         # Procurando livro em autor
-        i = 0
-        while i < len(self.bd_Autor[id_autor].livros) and self.bd_Autor[id_autor].livros[i].id != id_livro:
-            i += 1
-
-        # Analisando se este livro esta relacionado
-        if i < len(self.bd_Autor[id_autor].livros):
+        if id_livro in self.bd_Autor[id_autor].livros:
             # Removendo o livro do autor
-            self.bd_Autor[id_autor].livros.pop(i)
-        
-            # Removendo autor de livro
+            del self.bd_Autor[id_autor].livros[id_livro]
+
+            # Removendo o autor do livro
             self.bd_Livro[id_livro].autor_id = None
