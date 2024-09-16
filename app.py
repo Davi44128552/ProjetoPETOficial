@@ -212,6 +212,12 @@ class Handler(BaseHTTPRequestHandler):
             put_data = self.rfile.read(content_length).decode('utf-8')
             book_data = json.loads(put_data)
 
+            ex_title = ""
+            ex_genre = ""
+            ex_year = ""
+            ex_author_id = ""
+
+
             if not book_data.get('title'):
                 ex_title = data_store['book_store'][book_id]['title']
             if not book_data.get('genre'):
@@ -246,12 +252,16 @@ class Handler(BaseHTTPRequestHandler):
             put_data = self.rfile.read(content_length).decode('utf-8')
             author_data = json.loads(put_data)
 
+            ex_name = ""
+            ex_birthday = ""
+            ex_nationality = ""
+
             if not author_data.get('name'):
-                ex_name = data_store['book_store'][book_id]['name']
-            if not book_data.get('birthday'):
-                ex_birthday = data_store['book_store'][book_id]['birthday']
-            if not book_data.get('nationality'):
-                ex_nationality = data_store['book_store'][book_id]['nationality']
+                ex_name = data_store['author_store'][author_id]['name']
+            if not author_data.get('birthday'):
+                ex_birthday = data_store['author_store'][author_id]['birthday']
+            if not author_data.get('nationality'):
+                ex_nationality = data_store['author_store'][author_id]['nationality']
             
             print(f'Updatind author {author_id}')
             data_store['author_store'][author_id] = {
