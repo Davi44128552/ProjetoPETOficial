@@ -16,7 +16,7 @@ class Autor:
         self.nacionalidade = nacionalidade
 
         # lista com os livros
-        self.livros = []
+        self.livros = {}
 
     # Metodo para retornar todas as informacoes do autor
     def retornar_dicionario(self):
