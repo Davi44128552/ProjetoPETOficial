@@ -54,5 +54,45 @@ Caso você estiver usando Linux, é possível testar as rotas através do `curl`
  - **DELETE** <br/>
 `curl -X DELETE http://localhost:8000/{rota_desejada}`
 
+### Curl
+Aqui estão alguns exemplos
+POST:
+       ` Associacao`
+    `curl -X POST http://localhost:8000/authors/1/books/1`
+
+        Autor
+    curl -X POST http://localhost:8000/authors -H "Content-Type: application/json" -d '{"name":"Shakespeare", "birthday":"1800", "nationality":"britanico"}'
+
+        Livro
+    curl -X POST http://localhost:8000/books -H "Content-Type: application/json" -d '{"title": "Romeu e Julieta","genre":"romance", "year":1999, "author_id":""}'
+
+  GET:
+        `Associacao
+    curl -X GET http://localhost:8000/authors/1/books`
+
+        Autores
+    curl -X GET http://localhost:8000/authors/{id_autor} 
+    curl -X GET http://localhost:8000/authors
+
+        Livros
+    curl -X GET http://localhost:8000/books/{id_livro}
+    curl -X GET http://localhost:8000/books
+
+  PUT
+        `Autores
+    curl -X PUT http://localhost:8000/authors/{id_autor} -H "Content-Type: application/json" -d '{informacoes a serem alteradas}'`
+
+        Livros
+    curl -X PUT http://localhost:8000/books/{id_livro} -H "Content-Type: application/json" -d '{informacoes a serem alteradas}'
+
+  DELETE
+        `Associacao
+    curl -X DELETE localhost:8000/authors/{id_autor}/books/{id_livro}`
+
+        Autores
+    curl -X DELETE localhost:8000/authors/{id_autor}
+
+        Livros
+    curl -X DELETE localhost:8000/books/{id_livro}
 
   
