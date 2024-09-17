@@ -42,7 +42,17 @@ Caso você estiver usando Linux, é possível testar as rotas através do `curl`
  - **POST (No caso de livros e autores)** <br/>
 `curl -X POST http://localhost:8000/{rota_desejada} -H "Content-Type: application/json" -d '{"chave":"valor"}'` <br/>
 
- - **GET** 
+ - **POST (No caso de associacoes)** <br/>
+`curl -X POST http://localhost:8000/{rota_desejada}`
+
+ - **GET** <br/>
+`curl -X GET http://localhost:8000/{rota_desejada}`
+
+ - **PUT** <br/>
+ `curl -X PUT http://localhost:8000/{rota_desejada} -H "Content-Type: application/json" -d '{"chave": "valor"}'`
+
+ - **DELETE** <br/>
+`curl -X DELETE http://localhost:8000/{rota_desejada}`
 
 
   
