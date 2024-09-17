@@ -38,6 +38,11 @@ Caso você queira testar o método get no terminal, você também pode usar o cm
 `Invoke-RestMethod -Method Get -Uri http://localhost:8000/{rota_desejada}`
 
 ### Curl
+Caso você estiver usando Linux, é possível testar as rotas através do `curl` no terminal da seguinte forma:
+ - **POST (No caso de livros e autores)** <br/>
+`curl -X POST http://localhost:8000/{rota_desejada} -H "Content-Type: application/json" -d '{"chave":"valor"}'` <br/>
+
+ - **GET** 
 
 
   
